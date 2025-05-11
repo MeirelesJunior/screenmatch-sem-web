@@ -1,0 +1,11 @@
+package br.com.alura.screenmatch.model;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+//Informando pra que leia do JSON apenas os dados da serie do record e ignorando o resto do corpo
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record DadosSerie(@JsonAlias("Title") String titulo,
+                         @JsonAlias("totalSeasons") Integer totalTemporadas,
+                         @JsonAlias("imdbRating") String avaliacao) {
+}
