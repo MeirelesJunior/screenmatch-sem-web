@@ -1,32 +1,32 @@
 package br.com.alura.screenmatch;
 
-import br.com.alura.screenmatch.model.DadosSerie;
+import br.com.alura.screenmatch.principal.Principal;
+import br.com.alura.screenmatch.repository.SerieRepository;
 import br.com.alura.screenmatch.service.ConsumoAPI;
-import br.com.alura.screenmatch.service.ConverteDados;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ScreenmatchApplication  implements CommandLineRunner {
+public class ScreenmatchApplication implements CommandLineRunner {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ScreenmatchApplication.class, args);
-	}
+    @Autowired
+    private SerieRepository repositorio;
 
-	@Override
-	public void run(String... args) throws Exception {
-		//"&apikey=c3d3cb74"
-		var consumoApi = new ConsumoAPI();
-		var json = consumoApi.obterDados("https://www.omdbapi.com/?t=gilmore+girls&apikey=c3d3cb74");
-		//System.out.println(json);
+    public static void main(String[] args) {
+        SpringApplication.run(ScreenmatchApplication.class, args);
+    }
 
-		/*json = consumoApi.obterDados("https://coffee.alexflipnote.dev/random.json");
-		System.out.println(json);*/
-		ConverteDados conversor = new ConverteDados();
 
-		DadosSerie dados = conversor.obterDados(json,DadosSerie.class);
+    @Override
+    public void run(String... args) throws Exception {
+        Principal principal = new Principal(repositorio);
 
-		System.out.println(dados);
-	}
+        principal.exibirMenu();
+
+
+
+
+    }
 }
